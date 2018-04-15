@@ -1,0 +1,21 @@
+<% executable_meta.each do |method, arguments| %>
+  Executable: <%= executable.upcase %>
+  <br/>
+  Method: <%= method.to_s.upcase %>
+  <br/>
+  Arguments:
+  <form method="post" action=<%="#{req.script_name}/execute"%>>
+    <input type="text" hidden name="executable_method" value=<%= method %>>
+    <input type="text" hidden name="executable_class" value=<%= executable %>>
+    </input>
+    <% arguments.each_with_index do |arg, index| %>
+      <input type="text" name=<%= "argumnets[#{index}]" %> placeholder=<%= arg %>>
+      </input>
+      <br/>
+    <% end %>
+    <button type="submit">
+      Execute
+    </button>
+  </form>
+<br/>
+<% end %>

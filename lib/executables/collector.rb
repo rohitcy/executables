@@ -12,6 +12,15 @@ module Executables
         end
         executables
       end
+
+      def collect_executable_metadata(executable)
+        executable_meta = {}
+        executable = Object.const_get(executable)
+        (executable.instance_methods(false) - executable.methods(false)).each do |method|
+          executable_meta[method] = executable.instance_method(method).parameters.map(&:last)
+        end
+        executable_meta
+      end
     end
   end
 end
