@@ -1,28 +1,48 @@
 # Executables
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/executables`. To experiment with that code, run `bin/console` for an interactive prompt.
+Executables gives you an ability to run your rails app's executables via a web interface.
 
-TODO: Delete this and the text above, and describe your gem
+With the help of simple configuration options you can tell executables to expose your executables. Executables will fetch all the executables as per the configuration options, along with their respective executable methods and arguments they accept thus giving you an ability to execute them.
 
-## Installation
+Read more here to know more about the intentions behind building executables.
 
-Add this line to your application's Gemfile:
+## Getting Started
+
+Using executables is easy and it requires minimal configuration, please follow below steps to start using it.
+
+1. Add executables to your Gemfile:
 
 ```ruby
-gem 'executables'
+  gem 'executables'
 ```
 
-And then execute:
+2. Add a initializer in `config/initializers` to tell executables where your executables are, like as follows:
 
-    $ bundle
+```ruby
+Executables.configure do |c|
+  c.root_directory = Rails.root
+  c.executable_directories = ['app/workers']
+end
+```
 
-Or install it yourself as:
+3. Mount web application on desired url, add following to your `config/routes.rb`:
 
-    $ gem install executables
+```ruby
+  require 'executables/web'
+  mount Executables::Web::App => "/admin/executables"
+```
 
-## Usage
+You can also use constraints like as follows to limit access:
 
-TODO: Write usage instructions here
+```ruby
+  require 'executables/web'
+  executables_constraint = lambda { |request| request.env['warden'].authenticated?(:admin) }
+
+  constraints executables_constraint do
+    mount Executables::Web::App => '/admin/executables'
+  end
+```
+
 
 ## Development
 
@@ -32,7 +52,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/executables.
+Bug reports and pull requests are welcome on GitHub at https://github.com/rohitcy/executables.
 
 ## License
 
