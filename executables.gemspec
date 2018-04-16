@@ -9,9 +9,15 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Rohit Patel"]
   spec.email         = ["rohit.patel061@gmail.com"]
 
-  spec.summary       = %q{Expose your executables}
-  spec.description   = %q{}
-  spec.homepage      = ""
+  spec.summary       = %q{Executables gives you an ability to run your rails app's executables via a web interface.
+
+With the help of simple configuration options you can tell executables to expose your executables. Executables will fetch all the executables as per the configuration options, along with their respective executable methods and arguments they accept thus giving you an ability to execute them.
+
+Read more here to know more about the intentions behind building executables
+}
+  spec.description   = %q{Run your rails app's executables via a web interface
+}
+  spec.homepage      = "https://github.com/rohitcy/executables"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
