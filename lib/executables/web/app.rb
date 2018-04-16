@@ -25,6 +25,13 @@ module Executables
             response = "Not able to execute executable, error message: #{e.message}"
           end
           [200, {"Content-Type" => "text/html"}, [response]]
+        when /assets/
+          begin
+            asset_content = File.read(File.expand_path("#{File.dirname(__FILE__)}/../../../web/#{request.path_info}"))
+            [200, {"Content-Type" => "text/css;charset=utf-8"}, [asset_content]]
+          rescue Exception => e
+            [500, {"Content-Type" => "text/html"}, ["Can't find asset"]]
+          end
         else
           [404, {"Content-Type" => "text/html"}, ["I'm Lost!"]]
         end

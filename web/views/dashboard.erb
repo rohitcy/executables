@@ -1,3 +1,6 @@
+<h3 class="my-4">
+  Please click on a executable to execute it.
+</h3>
 <% bindings['executables'].each do |executable| %>
 <%= "<a href=#{request.script_name}/executables?executable=#{executable}> #{executable} </a>" %>
 <br/>
