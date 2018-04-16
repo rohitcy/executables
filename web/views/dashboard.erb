@@ -1,0 +1,4 @@
+<% bindings['executables'].each do |executable| %>
+<%= "<a href=#{request.script_name}/executables?executable=#{executable}> #{executable} </a>" %>
+<br/>
+<% end %>
