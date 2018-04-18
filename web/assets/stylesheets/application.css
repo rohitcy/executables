@@ -17,3 +17,11 @@ body {
    color: white;
    text-align: center;
 }
+.navbar-brand {
+  position: relative;
+}
+.navbar-brand small {
+  position: absolute;
+  bottom: 11px;
+  font-size: 12px;
+}

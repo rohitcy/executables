@@ -4,7 +4,7 @@ Executables gives you an ability to run your rails app's executables via a web i
 
 With the help of simple configuration options you can tell executables to expose your executables. Executables will fetch all the executables as per the configuration options, along with their respective executable methods and arguments they accept thus giving you an ability to execute them.
 
-Read more here to know more about the intentions behind building executables.
+Read more [here](https://rohitcy.github.io/2018/04/17/why-and-how-to-use-executables/) to know more about the intentions behind building executables.
 
 ## Getting Started
 
