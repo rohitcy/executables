@@ -1,5 +1,8 @@
 # Executables
 
+[![Gem Version](https://badge.fury.io/rb/executables.svg)](https://badge.fury.io/rb/executables)
+[![Maintainability](https://api.codeclimate.com/v1/badges/e3215a73f115362257ee/maintainability)](https://codeclimate.com/github/rohitcy/executables/maintainability)
+
 Executables gives you an ability to run your rails app's executables via a web interface.
 
 With the help of simple configuration options you can tell executables to expose your executables. Executables will fetch all the executables as per the configuration options, along with their respective executable methods and arguments they accept thus giving you an ability to execute them.
