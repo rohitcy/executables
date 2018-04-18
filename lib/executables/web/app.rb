@@ -10,10 +10,16 @@ module Executables
           html = Executables::Web::Renderer.render(request, 'dashboard', bindings)
           [200, {"Content-Type" => "text/html"}, [html]]
         when /executables/
-          bindings['executable'] = request.params['executable']
-          bindings['executable_meta'] = Executables::Collector.collect_executable_metadata(request.params['executable'])
-          html = Executables::Web::Renderer.render(request, 'execute', bindings)
-          [200, {"Content-Type" => "text/html"}, [html]]
+          begin
+            bindings['executable'] = request.params['executable']
+            bindings['executable_meta'] = Executables::Collector.collect_executable_metadata(request.params['executable'])
+            html = Executables::Web::Renderer.render(request, 'execute', bindings)
+            [200, {"Content-Type" => "text/html"}, [html]]
+          rescue Exception => e
+            bindings['error'] = e.message
+            html = Executables::Web::Renderer.render(request, 'error', bindings)
+            [200, {"Content-Type" => "text/html"}, [html]]
+          end
         when /execute/
           begin
             executable_class = Object.const_get(request.params["executable_class"])
@@ -22,7 +28,9 @@ module Executables
             executable_class.new.send(executable_method, *(argumnets))
             response = "Executable executed successfully!"
           rescue Exception => e
-            response = "Not able to execute executable, error message: #{e.message}"
+            bindings['error'] = e.message
+            html = Executables::Web::Renderer.render(request, 'error', bindings)
+            [200, {"Content-Type" => "text/html"}, [html]]
           end
           [200, {"Content-Type" => "text/html"}, [response]]
         when /assets/
