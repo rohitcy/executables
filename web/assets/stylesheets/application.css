@@ -25,3 +25,9 @@ body {
   bottom: 11px;
   font-size: 12px;
 }
+
+.center {
+  width: 30%;
+  margin: auto;
+  margin-top: 40px;
+}
