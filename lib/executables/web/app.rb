@@ -22,15 +22,15 @@ module Executables
           end
         when /execute/
           begin
+            execute_async = request.params["async"].present?
             executable_class = Object.const_get(request.params["executable_class"])
             executable_method = request.params["executable_method"]
             argumnets = request.params["argumnets"].try(:values) || []
-            executable_class.new.send(executable_method, *(argumnets))
-            response = "Executable executed successfully!"
+            response = Executables::Executor.execute(executable_class, executable_method, argumnets, execute_async)
           rescue Exception => e
             bindings['error'] = e.message
             html = Executables::Web::Renderer.render(request, 'error', bindings)
-            [200, {"Content-Type" => "text/html"}, [html]]
+            return [200, {"Content-Type" => "text/html"}, [html]]
           end
           [200, {"Content-Type" => "text/html"}, [response]]
         when /assets/
