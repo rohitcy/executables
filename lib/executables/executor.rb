@@ -7,13 +7,16 @@ module Executables
         else
           ExecutorJob.perform_now(executable_class, executable_method, arguments)
         end
+        'Executable executed successfully!'
       end
     end
 
     private
     class ExecutorJob < ActiveJob::Base
+      queue_as :default
       def perform(executable_class, executable_method, arguments)
-        if executable_class.instance_methods.include?(executable_method)
+        executable_class = Object.const_get(executable_class)
+        if executable_class.instance_methods.include?(executable_method.to_sym)
           executable_class.new.send(executable_method, *(arguments))
         else
           executable_class.send(executable_method, *(arguments))
